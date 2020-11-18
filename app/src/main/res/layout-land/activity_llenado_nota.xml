@@ -34,6 +34,7 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_Titulo"/>
+
     <EditText
             android:id="@+id/txt_Texto"
             android:layout_width="388dp"
@@ -47,7 +48,6 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"/>
-
     <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
             android:id="@+id/btn_AgregarNota"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="4dp"
             android:text="Agregar Mii"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
