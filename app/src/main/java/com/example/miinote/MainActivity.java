@@ -1,10 +1,12 @@
 package com.example.miinote;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,10 +15,17 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 public class MainActivity extends AppCompatActivity {
 //55959594
+
+    private DataBaseManager manager;
+    private Cursor cursor;
+    private ListView lista;
+    private SimpleCursorAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,12 +33,28 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        manager = new DataBaseManager(this);
+        lista = (ListView) findViewById(R.id.Listvista);
+
+        manager.insertar("Mane","debe Feria","Me deves mucho mane hijo de la *******");
+        //manager.insertar("Aplicacion","debe Feria","Me deves mucho mane hijo de la *******");
+        //manager.insertar("chales","debe Feria","Me deves mucho mane hijo de la *******");
+
+
+        String[] from = new String[]{ manager.CN_TITLE,manager.CN_DESCRIP,manager.CN_CONTENT};
+        int[] to = new int[]{android.R.id.text1,android.R.id.text2};
+        cursor = manager.cargarCursorNotas();
+//Error MANE CHECALO
+        adapter = new SimpleCursorAdapter(this,android.R.layout.two_line_list_item,cursor,from,to,0);
+        lista.setAdapter(adapter);
+
+
+        //creacion de boton flotante
         FloatingActionButton fab = findViewById(R.id.agrega);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               //Snackbar.make(view, "Nueva Mii Nota", Snackbar.LENGTH_LONG)
-               //         .setAction("Action", null).show();
+                //llamado de activity llenadoNota
                 Intent miIntent = new Intent(MainActivity.this,LlenadoNota.class);
                 startActivity(miIntent);
             }
@@ -57,4 +82,20 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+/**
+    public void registrar(){
+        manager = new DbHelper(this,"listanotas",null,1);
+        SQLiteDatabase admin = manager.getWritableDatabase();
+        String titulo = "mane";
+        String descripcion = "debe";
+        String nota = "me debe feria";
+
+        ContentValues registro = new ContentValues();
+        registro.put("titulo",titulo);
+        registro.put("descripcion",descripcion);
+        registro.put("nota",nota);
+
+        admin.insert("notas",null,registro);
+
+    }**/
 }
