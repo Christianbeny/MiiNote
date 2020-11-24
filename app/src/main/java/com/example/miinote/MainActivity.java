@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         manager = new DataBaseManager(this);
-        lista = (ListView) findViewById(R.id.Listvista);
+        lista = (ListView) findViewById(R.id.ListView);
 
         manager.insertar("Mane","debe Feria","Me deves mucho mane hijo de la *******");
         //manager.insertar("Aplicacion","debe Feria","Me deves mucho mane hijo de la *******");
