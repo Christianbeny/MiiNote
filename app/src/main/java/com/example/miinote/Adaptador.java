@@ -11,7 +11,7 @@ public class Adaptador extends BaseAdapter {
     public int getCount() {
         return 0;
     }
-
+//4785
     @Override
     public Object getItem(int position) {
         return null;
