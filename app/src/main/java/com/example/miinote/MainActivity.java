@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private DataBaseManager manager;
     private Cursor cursor;
     private ListView lista;
-    private SimpleCursorAdapter adapter;
+    private Adaptador adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
         int[] to = new int[]{android.R.id.text1,android.R.id.text2};
         cursor = manager.cargarCursorNotas();
 //Error MANE CHECALO
-        adapter = new SimpleCursorAdapter(this,android.R.layout.two_line_list_item,cursor,from,to,0);
+        adapter = new Adaptador();
+        //adapter = new SimpleCursorAdapter(this,android.R.layout.two_line_list_item,cursor,from,to,0);
         lista.setAdapter(adapter);
 
 
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 //cambios
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
