@@ -1,30 +1,38 @@
 package com.example.miinote;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import com.example.miinote.Adaptador.Adaptador;
+import com.example.miinote.Modelo.Item;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 //55959594
-
+/**
     private DataBaseManager manager;
     private Cursor cursor;
     private ListView lista;
     private Adaptador adapter;
+**/
+    private RecyclerView recyclerView;
+    private Adaptador adaptador;
+    private RecyclerView.LayoutManager manager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,23 +40,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+/**
         manager = new DataBaseManager(this);
-        lista = (ListView) findViewById(R.id.ListView);
+        lista = (ListView) findViewById(R.id.RecyclerView);
 
         manager.insertar("Mane","debe Feria","Me deves mucho mane hijo de la *******");
         //manager.insertar("Aplicacion","debe Feria","Me deves mucho mane hijo de la *******");
         //manager.insertar("chales","debe Feria","Me deves mucho mane hijo de la *******");
 
-
-        String[] from = new String[]{ manager.CN_TITLE,manager.CN_DESCRIP,manager.CN_CONTENT};
-        int[] to = new int[]{android.R.id.text1,android.R.id.text2};
         cursor = manager.cargarCursorNotas();
-//Error MANE CHECALO
-        adapter = new Adaptador();
-        //adapter = new SimpleCursorAdapter(this,android.R.layout.two_line_list_item,cursor,from,to,0);
-        lista.setAdapter(adapter);
 
+        adapter = new Adaptador();
+        lista.setAdapter(adapter);
+**/
+
+
+        recyclerView = findViewById(R.id.RecyclerView);
+        manager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(manager);
+
+        adaptador = new Adaptador(this,getlista());
+        recyclerView.setAdapter(adaptador);
 
         //creacion de boton flotante
         FloatingActionButton fab = findViewById(R.id.agrega);
@@ -84,20 +96,21 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-/**
-    public void registrar(){
-        manager = new DbHelper(this,"listanotas",null,1);
-        SQLiteDatabase admin = manager.getWritableDatabase();
-        String titulo = "mane";
-        String descripcion = "debe";
-        String nota = "me debe feria";
+    private ArrayList<Item> getlista() {
+        ArrayList<Item> itemLists = new ArrayList<>();
+        itemLists.add(new Item("Saga de Broly", "Ultima pelicula de DB, peleas epicas.", "Atomicos"));
+        itemLists.add(new Item("Super sayayines 4", "La ultima transformacion de la saga no canon.", "Atomicos"));
+        itemLists.add(new Item("Super Sayayiness Blues", "Goku y Vegeta, la transformacion de dioses.", "Atomicos"));
+        itemLists.add(new Item("Goku ultrainstinto", "Infaltablñe power-up a Goku.", "Atomicos"));
+        itemLists.add(new Item("Super Vegeta Blue x2", "Diferentes transformaciones de super Vegeta.", "Atomicos"));
+        itemLists.add(new Item("Vegeta sapbe", "Vegeta sapbe o no sapbe xD.", "Atomicos"));
+        itemLists.add(new Item("Saga de Broly", "Ultima pelicula de DB, peleas epicas.", "Atomicos"));
+        itemLists.add(new Item("Super sayayines 4", "La ultima transformacion de la saga no canon.","Atomicos"));
+        itemLists.add(new Item("Super Sayayiness Blues", "Goku y Vegeta, la transformacion de dioses.", "Atomicos"));
+        itemLists.add(new Item("Goku ultrainstinto", "Infaltablñe power-up a Goku.", "Atomicos"));
+        itemLists.add(new Item("Super Vegeta Blue x2", "Diferentes transformaciones de super Vegeta.", "Atomicos"));
+        itemLists.add(new Item("Vegeta sapbe", "Vegeta sapbe o no sapbe xD.", "Atomicos"));
 
-        ContentValues registro = new ContentValues();
-        registro.put("titulo",titulo);
-        registro.put("descripcion",descripcion);
-        registro.put("nota",nota);
-
-        admin.insert("notas",null,registro);
-
-    }**/
+        return itemLists;
+    }
 }
