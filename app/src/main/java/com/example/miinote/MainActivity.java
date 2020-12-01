@@ -1,5 +1,6 @@
 package com.example.miinote;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import com.example.miinote.Adaptador.Adaptador;
 import com.example.miinote.Modelo.Item;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,22 +19,17 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-//55959594
-/**
-    private DataBaseManager manager;
-    private Cursor cursor;
-    private ListView lista;
-    private Adaptador adapter;
-**/
+
     private RecyclerView recyclerView;
     private Adaptador adaptador;
     private RecyclerView.LayoutManager manager;
-
+    private ArrayList<Item> lista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,38 +37,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-/**
-        manager = new DataBaseManager(this);
-        lista = (ListView) findViewById(R.id.RecyclerView);
-
-        manager.insertar("Mane","debe Feria","Me deves mucho mane hijo de la *******");
-        //manager.insertar("Aplicacion","debe Feria","Me deves mucho mane hijo de la *******");
-        //manager.insertar("chales","debe Feria","Me deves mucho mane hijo de la *******");
-
-        cursor = manager.cargarCursorNotas();
-
-        adapter = new Adaptador();
-        lista.setAdapter(adapter);
-**/
-
-
         recyclerView = findViewById(R.id.RecyclerView);
         manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
-
-        adaptador = new Adaptador(this,getlista());
-        recyclerView.setAdapter(adaptador);
-
-        //creacion de boton flotante
-        FloatingActionButton fab = findViewById(R.id.agrega);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //llamado de activity llenadoNota
-                Intent miIntent = new Intent(MainActivity.this,LlenadoNota.class);
-                startActivity(miIntent);
-            }
-        });
+        actualizarlista();
     }
 
 //cambios
@@ -96,21 +65,51 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    private ArrayList<Item> getlista() {
-        ArrayList<Item> itemLists = new ArrayList<>();
-        itemLists.add(new Item("Saga de Broly", "Ultima pelicula de DB, peleas epicas.", "Atomicos"));
-        itemLists.add(new Item("Super sayayines 4", "La ultima transformacion de la saga no canon.", "Atomicos"));
-        itemLists.add(new Item("Super Sayayiness Blues", "Goku y Vegeta, la transformacion de dioses.", "Atomicos"));
-        itemLists.add(new Item("Goku ultrainstinto", "Infaltablñe power-up a Goku.", "Atomicos"));
-        itemLists.add(new Item("Super Vegeta Blue x2", "Diferentes transformaciones de super Vegeta.", "Atomicos"));
-        itemLists.add(new Item("Vegeta sapbe", "Vegeta sapbe o no sapbe xD.", "Atomicos"));
-        itemLists.add(new Item("Saga de Broly", "Ultima pelicula de DB, peleas epicas.", "Atomicos"));
-        itemLists.add(new Item("Super sayayines 4", "La ultima transformacion de la saga no canon.","Atomicos"));
-        itemLists.add(new Item("Super Sayayiness Blues", "Goku y Vegeta, la transformacion de dioses.", "Atomicos"));
-        itemLists.add(new Item("Goku ultrainstinto", "Infaltablñe power-up a Goku.", "Atomicos"));
-        itemLists.add(new Item("Super Vegeta Blue x2", "Diferentes transformaciones de super Vegeta.", "Atomicos"));
-        itemLists.add(new Item("Vegeta sapbe", "Vegeta sapbe o no sapbe xD.", "Atomicos"));
 
-        return itemLists;
+    public void actualizarlista()
+    {
+
+        BaseDeDatos admin =new BaseDeDatos(this,"MiiNota",null,1);
+        lista=admin.MostrarNotas();
+        if(lista.size()==0)
+        {
+            ArrayList<Item> listavacia=new ArrayList<>();
+            listavacia.add(new Item("No Hay MiiNotas","",""));
+            adaptador = new Adaptador(this,listavacia);
+            recyclerView.setAdapter(adaptador);
+        }
+        else
+        {
+            adaptador= new Adaptador(this,lista);
+            recyclerView.setAdapter(adaptador);
+        }
+    }
+
+    public void TipoDeNota(View v)
+    {
+        AlertDialog.Builder Dialogo = new AlertDialog.Builder(this);
+        Dialogo.setTitle("Tipo De Archivo:");
+        final String[] opciones = new String[]{"Nota", "Multimedia"};
+        Dialogo.setItems(opciones, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(i==0)
+                {
+                    Intent intent = new Intent(getBaseContext(),LlenadoNota.class);
+                    startActivity(intent);
+                }
+                else
+                {
+
+                }
+            }
+        });
+        Dialogo.setNegativeButton("Cancelar",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        Dialogo.create().show();
     }
 }

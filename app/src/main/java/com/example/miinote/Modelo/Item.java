@@ -4,12 +4,12 @@ public class Item {
 
     private String titulo;
     private String descrip;
-    private String nota;
+    private String fecha;
 
-    public Item(String titulo, String descrip, String nota) {
+    public Item(String titulo, String descrip,String fecha) {
         this.titulo = titulo;
         this.descrip = descrip;
-        this.nota = nota;
+        this.fecha = fecha;
     }
 
     public String getTitulo() {
@@ -20,7 +20,9 @@ public class Item {
         return descrip;
     }
 
-    public String getNota() {
-        return nota;
+    public String getFecha() {
+        return fecha;
     }
+
 }
+

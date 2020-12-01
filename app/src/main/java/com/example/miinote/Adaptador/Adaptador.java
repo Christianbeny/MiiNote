@@ -36,7 +36,7 @@ public class Adaptador extends RecyclerView.Adapter {
         Holder Hol = (Holder) holder;
         Hol.txtTitu.setText(item.getTitulo());
         Hol.txtDes.setText(item.getDescrip());
-        Hol.txtNot.setText(item.getNota());
+        Hol.txtfecha.setText(item.getFecha());
     }
 
     @Override
@@ -48,14 +48,14 @@ public class Adaptador extends RecyclerView.Adapter {
 
         TextView txtTitu;
         TextView txtDes;
-        TextView txtNot;
+        TextView txtfecha;
 
         public Holder(View itemView) {
             super(itemView);
 
             txtTitu = (TextView) itemView.findViewById(R.id.txtTitulo);
             txtDes = (TextView) itemView.findViewById(R.id.txtDesc);
-            txtNot = (TextView) itemView.findViewById(R.id.txtNota);
+            txtfecha = (TextView) itemView.findViewById(R.id.txtFecha);
         }
     }
 }
