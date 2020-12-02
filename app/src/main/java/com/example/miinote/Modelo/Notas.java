@@ -1,6 +1,8 @@
 package com.example.miinote.Modelo;
 
-public class Notas {
+import java.io.Serializable;
+
+public class Notas implements Serializable {
     public int id;
     public String titulo;
     public String descripcion;

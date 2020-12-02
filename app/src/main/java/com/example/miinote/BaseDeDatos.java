@@ -37,7 +37,7 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         Cursor registros = bd.rawQuery(sql, null);
         if (registros.moveToFirst()) {
             do {
-                listanota.add(new Item(registros.getString(1), registros.getString(2), registros.getString(4)));
+                listanota.add(new Item(registros.getInt(0),registros.getString(1), registros.getString(2), registros.getString(4), registros.getString(3)));
             } while (registros.moveToNext());
         }
         return listanota;
@@ -59,18 +59,4 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         }
         return nota;
     }
-/**
- public int ObtenerClaveTarea(String titulo)
- {
- int clave=0;
- bd= this.getWritableDatabase();
- String consulta="Select ClaveTarea from tareas where titulo='"+titulo+"'";
- Cursor registros = bd.rawQuery(consulta,null);
- if(registros.moveToFirst())
- {
- clave = registros.getInt(0);
- }
- return clave;
- }
- **/
 }

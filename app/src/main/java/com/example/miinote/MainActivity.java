@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         if(lista.size()==0)
         {
             ArrayList<Item> listavacia=new ArrayList<>();
-            listavacia.add(new Item("No Hay MiiNotas","",""));
+            listavacia.add(new Item(1,"No Hay MiiNotas","","",""));
             adaptador = new Adaptador(this,listavacia);
             recyclerView.setAdapter(adaptador);
         }
