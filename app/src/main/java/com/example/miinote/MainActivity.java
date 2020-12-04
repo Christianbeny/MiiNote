@@ -2,12 +2,10 @@ package com.example.miinote;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 
 import com.example.miinote.Adaptador.Adaptador;
 import com.example.miinote.Modelo.Item;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,8 +17,6 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -37,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        recyclerView = findViewById(R.id.RecyclerView);
+
+        recyclerView = findViewById(R.id.rvLista);
         manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
         actualizarlista();
